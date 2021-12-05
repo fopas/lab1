@@ -86,10 +86,9 @@ TEST(Test3, correct_types_2){
   EXPECT_TRUE(st.debt.type()==typeid(nullptr));
 }
 
-TEST(ParserTest, TrueCount) {
+TEST(Test4, meta_test) {
   const std::string &path = "/home/tema/Documents/lab-01-parser/tests/students.json";
   std::ifstream file{path};
-  json data;
-  file >> data;
+  nlohmann::json data = json::parse(file);
   EXPECT_EQ(data.at("items").size(), data.at("_meta").at("count").get<size_t>());
 }
