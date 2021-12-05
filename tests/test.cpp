@@ -85,3 +85,11 @@ TEST(Test3, correct_types_2){
   EXPECT_TRUE(st.avg.type()==typeid(std::size_t));
   EXPECT_TRUE(st.debt.type()==typeid(nullptr));
 }
+
+TEST(ParserTest, TrueCount) {
+  const std::string &path = "/home/tema/Documents/lab-01-parser/tests/students.json";
+  std::ifstream file{path};
+  json data;
+  file >> data;
+  EXPECT_EQ(data.at("items").size(), data.at("_meta").at("count").get<size_t>());
+}
