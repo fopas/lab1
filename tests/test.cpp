@@ -87,8 +87,38 @@ TEST(Test3, correct_types_2){
 }
 
 TEST(Test4, meta_test) {
-  const std::string &path = "/home/tema/Documents/lab-01-parser/tests/students.json";
-  std::ifstream file{path};
-  nlohmann::json data = json::parse(file);
+  auto text = R"(
+{
+  "items": [
+    {
+      "name": "Ivanov Petr",
+      "group": "1",
+      "avg": "4.25",
+      "debt": null
+    },
+    {
+      "name": "Sidorov Ivan",
+      "group": 31,
+      "avg": 4,
+      "debt": "C++"
+    },
+    {
+      "name": "Petrov Nikita",
+      "group": "IU8-31",
+      "avg": 3.33,
+      "debt": [
+        "C++",
+        "Linux",
+        "Network"
+      ]
+    }
+  ],
+  "_meta": {
+    "count": 3
+  }
+})";
+  std::stringstream ss;
+  ss << text;
+  nlohmann::json data = json::parse(ss);
   EXPECT_EQ(data.at("items").size(), data.at("_meta").at("count").get<size_t>());
 }
